@@ -16,6 +16,7 @@
             border: 0px solid blue;
             position: absolute;
             top:50px;
+            z-index: 2;
             }
         #path {
             position: absolute;
@@ -23,7 +24,7 @@
             /*
             left:0;
             */
-            z-index: 200;
+            z-index: 500;
         }
         #step {
             position: absolute;
@@ -53,14 +54,27 @@
             position: absolute;
             z-index: 1000;
         }
+        #line{
+            position: absolute;
+            top:50px;
+            /*
+            left:0;
+            */
+            z-index: 0;
+        }
     </style>
 </head>
 <body>
             <div class="change">
                 <button id="next">下一题</button>
                 <button id="refresh">重置棋盘</button>
+                <button id="next">下一步</button>
+                <button id="back">上一步</button>
+                <button id="nextMore">下3步</button>
+                <button id="backMore">上3步</button>
             </div>
             <canvas id="step" width="600" height="600"></canvas>
+            <canvas id="line" width="600" height="600"></canvas>
             <canvas id="sign" width="600" height="600"></canvas>
             <canvas id="weiqi" width="600" height="600"></canvas>
             <canvas id="path" width="600" height="600"></canvas>
@@ -69,7 +83,27 @@
     
     
 </body>
-
+<script>
+    var line = document.getElementById('line')
+    var path = document.getElementById("path");
+    var sign = document.getElementById('sign')
+    var step = document.getElementById('step')
+    var bg = document.getElementById('bg')
+    var next = document.getElementById('next')
+    var refresh = document.getElementById('refresh')
+    var next = document.getElementById('next')
+    var back = document.getElementById('back')
+    var nextMore = document.getElementById('nextMore')
+    var backMore = document.getElementById('backMore')
+    var weiqi = document.getElementById('weiqi')
+    var c_path = path.getContext('2d')
+    var c_sign = sign.getContext('2d')
+    var c_weiqi = weiqi.getContext('2d')
+    var c_line = line.getContext('2d')
+    var c_bg =  bg.getContext('2d')
+    var c_step = step.getContext('2d')
+    
+</script>
 <!-- <script src="./parseTest.js"></script> -->
 <script src="./play.js"></script>
 <script src="./board.js"></script>

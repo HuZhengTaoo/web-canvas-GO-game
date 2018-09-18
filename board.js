@@ -97,7 +97,7 @@ function signHandle(e) {
 		return;
 
 	play(x_, y_, move_count);
-	console.log(x_,y_,move_count)
+	
 	showPan();
 }
 function mousemoveHandler(e) {
@@ -147,46 +147,38 @@ function mousemoveHandler(e) {
 	cxt.fill();
 }
 
-function initBorad(){
-    
-	var c_path = document.getElementById("path");
-	var c_sign = document.getElementById('sign')
-    c_path.addEventListener('mousemove', mousemoveHandler, false);
-	c_path.addEventListener('mousedown', mousedownHandler, false);
-	c_sign.addEventListener('mousedown', signHandle, false);
-    var c_weiqi = document.getElementById("weiqi");
-    var ctx = c_weiqi.getContext('2d')
 
-    grid(ctx)
-    ninePoints(ctx)
+// path.addEventListener('mousemove', mousemoveHandler, false);
+path.addEventListener('mousedown', mousedownHandler, false);
+// sign.addEventListener('mousedown', signHandle, false);
+
+
+function initBorad(){
+    grid(c_line)
+    ninePoints(c_line)
     boardInit()
     parseSgf(sgf)
     showPan()
-    
 }
-var next = document.getElementById('next')
-var refresh = document.getElementById('refresh')
+
 next.addEventListener('click',function(){
-    sgf = [{ B: [11, 11] }, { W: [13, 12] }, { B: [11, 12] }, { W: [18, 10] }, { B: [10, 10] }]
-    boardInit()
-    parseSgf(sgf)
+	 move_record = new Array();
+	sgf = [{ B: [11, 11] }, { W: [13, 12] }, { B: [11, 12] }, { W: [18, 10] }, { B: [10, 10] }]
+	move_count = 0
+	boardInit()
+	parseSgf(sgf)
+	c_step.clearRect(0,0,600,600)
     showPan()
 })
 refresh.addEventListener('click',function(){
-	pan = []
-	move_count = 0
-
-    var s = document.getElementById('sign')
-    var cxts = s.getContext('2d')
-	var c = document.getElementById('weiqi')
-    var cxt = c.getContext('2d')
-
-	/* 清空，重新画线等 */
-	cxts.clearRect(0,0,600,600);
-	cxt.clearRect(0,0,600,600);
-	
+	 move_record = new Array();
 	boardInit()
-	showPan()
+	move_count = 0
+	/* 清空，重新画线等 */
+	c_sign.clearRect(0,0,600,600);
+	c_step.clearRect(0,0,600,600)
+	c_path.clearRect(0,0,600,600)
+    showPan()
 })
 
 initBorad()
