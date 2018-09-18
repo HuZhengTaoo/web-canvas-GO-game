@@ -1,0 +1,8 @@
+{
+  "name": "hh",
+  "version": "",
+  "dependencies": {
+    "@sabaki/sgf": "^2.1.0",
+    "sgf2go": "0.0.7"
+  }
+}
