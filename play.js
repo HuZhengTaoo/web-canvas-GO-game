@@ -21,7 +21,8 @@ var signArr = new Array(
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 );
-
+var nextArr = []
+var backArr = []
 var pan = new Array(
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
@@ -65,12 +66,10 @@ function parseSgf(sgfArr){
         me = arr[idx].B ? true : false
         me ? pan[i][j] = 1 : pan[i][j] = 2
 	  })
-	  
 }
-    
 function showPan() {
 
-	c_weiqi.clearRect(0,0,600,600);
+	testHandler()
 	
 	for (var i = 0; i < 19; i++) {
 		for (var j = 0; j < 19; j++) {
@@ -116,9 +115,7 @@ function showPan() {
 		}
 	}
 	//显示标记位置
-	c_path.clearRect(0,0,600,600)
-	console.log(move_record)
-	if(true){
+		c_path.clearRect(0,0,600,600)
 		for(var m=0;m<move_record.length-1;m++){
 			//当pan【i】【j】为0就可以跳过
 			if(pan[move_record[m][0]][move_record[m][1]]===0)
@@ -137,7 +134,8 @@ function showPan() {
 			var move_msg = move_record[m][2].toString();
 			c_step.fillText(move_msg, (move_record[m][0]+1)*30, (move_record[m][1]+1)*30+6);
 		}
-	}
+
+
 	// 特别显示最新的一手
 	if (move_record.length > 0) {
 		c_weiqi.fillStyle = "red";
@@ -149,6 +147,7 @@ function showPan() {
 		);
 	}
 }
+
 
 function play(row, col) {
 	if (row < 0 || row > 19 || col < 0 || col > 19) {
@@ -182,3 +181,5 @@ function stone_down(row, col) {
 	move_record.push([row, col, move_count]);	// 记录手数
 	console.log(move_record)
 }
+
+

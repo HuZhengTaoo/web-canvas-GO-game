@@ -146,18 +146,33 @@ function mousemoveHandler(e) {
 		cxt.fillStyle="white";
 	cxt.fill();
 }
+function backStepHandler(){
 
-
-// path.addEventListener('mousemove', mousemoveHandler, false);
+		move_record.pop()
+		backArr = move_record
+		boardInit()
+		for(i=0;i<backArr.length;i++){
+			pan[backArr[i][0]][backArr[i][1]]=backArr[i][2]% 2===1?1:2	
+		}
+	console.log(pan)
+	showPan()
+}
+function testHandler(){
+	c_sign.clearRect(0,0,600,600);
+	c_step.clearRect(0,0,600,600)
+	c_path.clearRect(0,0,600,600)
+	c_weiqi.clearRect(0,0,600,600)
+}
+path.addEventListener('mousemove', mousemoveHandler, false);
 path.addEventListener('mousedown', mousedownHandler, false);
-// sign.addEventListener('mousedown', signHandle, false);
-
-
+sign.addEventListener('mousedown', signHandle, false);
+backStep.addEventListener('click',backStepHandler,false)
+testBtn.addEventListener('click',testHandler,false)
 function initBorad(){
     grid(c_line)
     ninePoints(c_line)
     boardInit()
-    parseSgf(sgf)
+    // parseSgf(sgf)
     showPan()
 }
 
