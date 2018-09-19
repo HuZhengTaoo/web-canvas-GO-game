@@ -21,11 +21,15 @@ var signArr = new Array(
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 	[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
 );
+//创建一个前进步数的标记为数字
+var copyRecord = []
+var stepLen = ''
 var nextArr = []
 var backArr = []
 var pan = []
 var moveNum = 0
-var moveRecordLen = 0
+var move_status = false
+var canClick = true
 //当前的步数统计
 var move_count = 0;
 //初始化数组
@@ -81,7 +85,6 @@ function play(row, col) {
 	if (move_count % 2 === 0) { // 未落子前是白
 		color = 1; 
 	}
-
     stone_down(row, col)
 	
 }
@@ -94,7 +97,9 @@ function stone_down(row, col) {
 	}
     move_count++
 	move_record.push([row, col, move_count]);	// 记录手数
-	console.log(move_record)
+	
+	move_status?'' :copyRecord = move_record.slice(0)
+	stepLen = move_record.length
 }
 // 特别显示最新的一手
 function show_last_step(arr){

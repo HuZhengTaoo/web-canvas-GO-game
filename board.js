@@ -32,7 +32,9 @@ function ninePoints(ctx){
 }
 
 function mousedownHandler(e) {
-	
+	if(!canClick){
+		return
+	}
 	var x, y;
 	if (e.offsetX || e.offsetX == 0) {
 		x = e.offsetX; //- imageView.offsetLeft;
@@ -148,18 +150,36 @@ function mousemoveHandler(e) {
 }
 //前进一步操作
 function nextStepHandler(){
-
+		canClick = false
+		move_status = true
+		if(move_count>=stepLen){
+			move_status = false
+			canClick = true
+			return
+		}
+		move_count++
+		move_record = copyRecord.slice(0,move_count)
+		console.log(move_record,move_count,stepLen,copyRecord)
+		boardInit()
+		for(i=0;i<move_record.length;i++){
+			pan[move_record[i][0]][move_record[i][1]]=move_record[i][2]% 2===1?1:2	
+		}
+		console.log(move_count,pan)
+		showPan(pan,move_record,move_record)
 }
 //后退一步操作
 function backStepHandler(){
+		canClick = false
+		move_record===0?'return ':''	
 		move_record.pop()
 		backArr = move_record
 		boardInit()
 		for(i=0;i<backArr.length;i++){
 			pan[backArr[i][0]][backArr[i][1]]=backArr[i][2]% 2===1?1:2	
 		}
-		parseSgf(sgf)
+		// parseSgf(sgf)
 		move_count===0?'':move_count--
+		console.log(copyRecord)
 		showPan(pan,move_record,move_record)
 }
 //清除画布
