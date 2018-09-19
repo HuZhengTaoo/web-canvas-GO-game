@@ -30,7 +30,7 @@ function ninePoints(ctx){
 	}
     
 }
-var move_count = 0;
+
 function mousedownHandler(e) {
 	
 	var x, y;
@@ -63,7 +63,7 @@ function mousedownHandler(e) {
 		return;
 
 	play(x_, y_, move_count);
-	showPan();
+	showPan(pan,move_record,move_record)
 }
 function signHandle(e) {
 	
@@ -98,7 +98,7 @@ function signHandle(e) {
 
 	play(x_, y_, move_count);
 	
-	showPan();
+	showPan(pan,move_record,move_record)
 }
 function mousemoveHandler(e) {
 	var x, y;
@@ -146,55 +146,65 @@ function mousemoveHandler(e) {
 		cxt.fillStyle="white";
 	cxt.fill();
 }
-function backStepHandler(){
+//前进一步操作
+function nextStepHandler(){
 
+}
+//后退一步操作
+function backStepHandler(){
 		move_record.pop()
 		backArr = move_record
 		boardInit()
 		for(i=0;i<backArr.length;i++){
 			pan[backArr[i][0]][backArr[i][1]]=backArr[i][2]% 2===1?1:2	
 		}
-	console.log(pan)
-	showPan()
+		parseSgf(sgf)
+		move_count===0?'':move_count--
+		showPan(pan,move_record,move_record)
 }
-function testHandler(){
+//清除画布
+function clearCanvas(){
 	c_sign.clearRect(0,0,600,600);
 	c_step.clearRect(0,0,600,600)
 	c_path.clearRect(0,0,600,600)
 	c_weiqi.clearRect(0,0,600,600)
 }
-path.addEventListener('mousemove', mousemoveHandler, false);
-path.addEventListener('mousedown', mousedownHandler, false);
-sign.addEventListener('mousedown', signHandle, false);
-backStep.addEventListener('click',backStepHandler,false)
-testBtn.addEventListener('click',testHandler,false)
+//统一的事件绑定
+function addEvent(){
+	path.addEventListener('mousemove', mousemoveHandler, false);
+	path.addEventListener('mousedown', mousedownHandler, false);
+	sign.addEventListener('mousedown', signHandle, false);
+	backStep.addEventListener('click',backStepHandler,false)
+	nextStep.addEventListener('click',nextStepHandler,false)
+}
+//初始化棋盘
 function initBorad(){
     grid(c_line)
     ninePoints(c_line)
-    boardInit()
-    // parseSgf(sgf)
-    showPan()
+    showPan(pan,move_record,move_record)
 }
-
+//下一题按钮
 next.addEventListener('click',function(){
-	 move_record = new Array();
+	move_record = new Array();
 	sgf = [{ B: [11, 11] }, { W: [13, 12] }, { B: [11, 12] }, { W: [18, 10] }, { B: [10, 10] }]
 	move_count = 0
 	boardInit()
 	parseSgf(sgf)
 	c_step.clearRect(0,0,600,600)
-    showPan()
+    showPan(pan,move_record,move_record)
 })
+//重置棋盘按钮
 refresh.addEventListener('click',function(){
-	 move_record = new Array();
+	move_record = new Array();
 	boardInit()
 	move_count = 0
 	/* 清空，重新画线等 */
 	c_sign.clearRect(0,0,600,600);
 	c_step.clearRect(0,0,600,600)
 	c_path.clearRect(0,0,600,600)
-    showPan()
+    showPan(pan,move_record,move_record)
 })
 
 initBorad()
+addEvent()
 
