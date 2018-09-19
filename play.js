@@ -30,6 +30,7 @@ var pan = []
 var moveNum = 0
 var move_status = false
 var canClick = true
+var jie = new Array();
 //当前的步数统计
 var move_count = 0;
 //初始化数组
@@ -180,4 +181,23 @@ function show_qizi(arr){
 	}
 }
 
+
+
+/* 		
+*吃逻辑，并且包括规则在其中
+*
+*
+*/	
+
+//能吃子吗
+// function can_eat(row,col,color,dead_body){
+// 	var ret = false
+// 	var anti_color = 2
+// 	if(color === 2)
+// 		anti_color = 1
+
+// 	if(row+1<19-1&&pan[row+1][col] === anti_color){
+// 		make_shadow()
+// 	}
+// }
 
