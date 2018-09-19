@@ -68,11 +68,14 @@
             <div class="change">
                 <button id="next">下一题</button>
                 <button id="refresh">重置棋盘</button>
-                <button id="nextStep">下一步</button>
-                <button id="backStep">上一步</button>
-                <button id="nextMore">下3步</button>
-                <button id="backMore">上3步</button>
+                <button id="backMore">《《</button>
+                <button id="backStep">《</button>
+                
+                <button id="nextStep">》</button>
+                <button id="nextMore">》》</button>
+                
                 <button id="testBtn">test</button>
+                <button id="retract">悔棋</button>
             </div>
             <canvas id="step" width="600" height="600"></canvas>
             <canvas id="line" width="600" height="600"></canvas>
@@ -93,6 +96,7 @@
     var testBtn = document.getElementById('testBtn')
     var nextStep = document.getElementById('nextStep')
     var refresh = document.getElementById('refresh')
+    var retract = document.getElementById('retract')
     var next = document.getElementById('next')
     var backStep = document.getElementById('backStep')
     var nextMore = document.getElementById('nextMore')

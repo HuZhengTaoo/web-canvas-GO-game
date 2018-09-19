@@ -148,38 +148,76 @@ function mousemoveHandler(e) {
 		cxt.fillStyle="white";
 	cxt.fill();
 }
-//前进一步操作
-function nextStepHandler(){
+//nextMove
+function nextMove(step){
+		// move_count===0?'return ':''
 		canClick = false
 		move_status = true
+		console.log(move_count,stepLen)
 		if(move_count>=stepLen){
 			move_status = false
 			canClick = true
 			return
 		}
-		move_count++
+		if(move_count + step>=stepLen){
+			move_count = stepLen
+		}else{
+			move_count = move_count + step
+		}	
+		
 		move_record = copyRecord.slice(0,move_count)
-		console.log(move_record,move_count,stepLen,copyRecord)
 		boardInit()
 		for(i=0;i<move_record.length;i++){
 			pan[move_record[i][0]][move_record[i][1]]=move_record[i][2]% 2===1?1:2	
 		}
-		console.log(move_count,pan)
+	
 		showPan(pan,move_record,move_record)
+}
+//backMove
+function backMove(step){
+		canClick = false
+		move_status = true
+		move_count===0?'return ':''	
+		for(var i=0;i<step;i++){
+				move_record.pop()
+		}
+		boardInit()
+		for(i=0;i<move_record.length;i++){
+			pan[move_record[i][0]][move_record[i][1]]=move_record[i][2]% 2===1?1:2	
+		}
+		// parseSgf(sgf)
+		console.log('before',move_count)
+		if(move_count!=0){
+			move_count=move_count-step
+		}
+		console.log('now',move_count)
+		showPan(pan,move_record,move_record)
+}
+//前进一步操作
+function nextStepHandler(){
+	nextMove(1)
 }
 //后退一步操作
 function backStepHandler(){
-		canClick = false
-		move_record===0?'return ':''	
+	backMove(1)
+}
+//前进三步
+function nextMoreHandler(){
+	nextMove(3)
+}
+//后退三步
+function backMoreHandler(){
+	backMove(3)
+}
+//悔棋
+function retractHandler(){
 		move_record.pop()
-		backArr = move_record
+		move_count --
 		boardInit()
-		for(i=0;i<backArr.length;i++){
-			pan[backArr[i][0]][backArr[i][1]]=backArr[i][2]% 2===1?1:2	
+		for(i=0;i<move_record.length;i++){
+			pan[move_record[i][0]][move_record[i][1]]=move_record[i][2]% 2===1?1:2	
 		}
-		// parseSgf(sgf)
-		move_count===0?'':move_count--
-		console.log(copyRecord)
+	
 		showPan(pan,move_record,move_record)
 }
 //清除画布
@@ -189,6 +227,7 @@ function clearCanvas(){
 	c_path.clearRect(0,0,600,600)
 	c_weiqi.clearRect(0,0,600,600)
 }
+
 //统一的事件绑定
 function addEvent(){
 	path.addEventListener('mousemove', mousemoveHandler, false);
@@ -196,6 +235,9 @@ function addEvent(){
 	sign.addEventListener('mousedown', signHandle, false);
 	backStep.addEventListener('click',backStepHandler,false)
 	nextStep.addEventListener('click',nextStepHandler,false)
+	nextMore.addEventListener('click',nextMoreHandler,false)
+	backMore.addEventListener('click',backMoreHandler,false)
+	retract.addEventListener('click',retractHandler,false)
 }
 //初始化棋盘
 function initBorad(){
